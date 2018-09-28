@@ -1,5 +1,5 @@
 {
-  "name": "industryweb/php-random-password",
+  "name": "industryweb/password-random",
   "description": "Generates a random password using lowercase, uppercase, numbers, and symbols.",
   "keywords": ["password", "password generator", "generate password"],
   "homepage": "https://github.com/industryweb/password-random",
