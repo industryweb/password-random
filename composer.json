@@ -1,0 +1,21 @@
+{
+  "name": "industryweb/php-random-password",
+  "description": "Generates a random password using lowercase, uppercase, numbers, and symbols.",
+  "keywords": ["password", "password generator", "generate password"],
+  "homepage": "https://github.com/industryweb/password-random",
+  "type": "library",
+  "version": "0.1.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Industry Web",
+      "homepage": "https://industryweb.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "autoload": {
+    "psr-4": {"IndustryWeb\\": "src"}
+  }
+  }
