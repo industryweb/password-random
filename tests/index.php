@@ -1,14 +1,19 @@
 <?php
 
-include_once '../src/password-random.php';
+use IndustryWeb\PasswordRandom;
 
-$password = new IndustryWeb\PasswordRandom( array(
-	'min'     => '15',
-	'max'     => '25',
-	'lower'   => '3',
-	'upper'   => '3',
-	'number'  => '3',
-	'special' => '3'
-) );
+$password = new PasswordRandom();
+
+echo $password
+	->min( 10 )
+	->max( 12 )
+	->lower( 3 )
+	->upper( 3 )
+	->number( 3 )
+	->symbol( 3 )
+	->generate();
+
+
+$password = new PasswordRandom( 10, 12, 3, 3, 3, 3 );
 
 echo $password->generate();

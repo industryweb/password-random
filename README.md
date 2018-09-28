@@ -18,18 +18,32 @@ composer require industryweb/password-generate
 ```
 
 ## Usage:
+Use the setters.
 
 ```php
-$password = new \IndustryWeb\PasswordRandom( array(
-	'min'     => '15',
-	'max'     => '25',
-	'lower'   => '3',
-	'upper'   => '3',
-	'number'  => '3',
-	'special' => '3'
-) );
+use IndustryWeb\PasswordRandom;
 
-echo $password->generate_password();
+$password = new PasswordRandom();
+
+echo $password
+	->min( 10 )
+	->max( 12 )
+	->lower( 3 )
+	->upper( 3 )
+	->number( 3 )
+	->symbol( 3 )
+	->generate();
+
+```
+Or use the constructor.
+```php
+use IndustryWeb\PasswordRandom;
+
+$password = new PasswordRandom();
+
+$password = new PasswordRandom( 10, 12, 3, 3, 3, 3 );
+
+echo $password->generate();
 ```
 
 ## License: 
