@@ -1,4 +1,9 @@
 # Password Random
+
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/industryweb/password-random.svg)]()
+[![Total Downloads](https://img.shields.io/packagist/dt/industryweb/password-random.svg)](https://packagist.org/packages/industryweb/password-random)
+[![License](https://img.shields.io/packagist/l/industryweb/password-random.svg)](https://packagist.org/packages/industryweb/password-random)
+
 Generates a random password using lowercase, uppercase, numbers, and symbols.
 
 ## Requirements:  
