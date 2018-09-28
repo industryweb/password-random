@@ -6,7 +6,7 @@ php  5.4+
 
 
 ## Installation:
-You can install the package in to a Laravel app that uses Nova via composer:
+You can install the package via composer:
 
 ```bash
 composer require industryweb/password-generate
