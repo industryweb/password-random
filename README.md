@@ -25,8 +25,6 @@ use IndustryWeb\PasswordRandom;
 
 $password = new PasswordRandom();
 
-$password = new PasswordRandom();
-
 $password
 	->length( 30, 40 )
 	->lower( 2, 40 )

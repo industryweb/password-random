@@ -5,7 +5,7 @@
  * @author Industry Web <info@industryweb.com>
  * @link    https://industryweb.com
  *
- * @version 0.2.0
+ * @version 0.2.1
  */
 
 namespace IndustryWeb;
@@ -195,7 +195,7 @@ class PasswordRandom {
 
 				if ( $lower_count <= $lower_min ) {
 					$lower_list_min .= substr( str_shuffle( $lower_list ), 0, 1 );
-					$lower_count ++; // = strlen($lower_list_min);
+					$lower_count ++;
 				}
 				if ( $lower_count < $lower_max ) {
 					$lower_list_max .= substr( str_shuffle( $this->make_list( $count, $lower_list ) ), 0, 1 );
@@ -208,7 +208,7 @@ class PasswordRandom {
 
 				if ( $upper_count <= $upper_min ) {
 					$upper_list_min .= substr( str_shuffle( $upper_list ), 0, 1 );
-					$upper_count ++; // = strlen($upper_list_min);
+					$upper_count ++;
 				}
 				if ( $upper_count < $upper_max ) {
 					$upper_list_max .= substr( str_shuffle( $this->make_list( $count, $upper_list ) ), 0, 1 );
@@ -220,7 +220,7 @@ class PasswordRandom {
 
 				if ( $number_count <= $number_min ) {
 					$number_list_min .= substr( str_shuffle( $number_list ), 0, 1 );
-					$number_count ++; // = strlen($number_list_min);
+					$number_count ++;
 				}
 				if ( $number_count < $number_max ) {
 					$number_list_max .= substr( str_shuffle( $this->make_list( $count, $number_list ) ), 0, 1 );
@@ -232,7 +232,7 @@ class PasswordRandom {
 
 				if ( $symbol_count <= $symbol_min ) {
 					$symbol_list_min .= substr( str_shuffle( $symbol_list ), 0, 1 );
-					$symbol_count ++; // = strlen($symbol_list_min);
+					$symbol_count ++;
 				}
 				if ( $symbol_count < $symbol_max ) {
 					$symbol_list_max .= substr( str_shuffle( $this->make_list( $count, $symbol_list ) ), 0, 1 );
@@ -247,7 +247,6 @@ class PasswordRandom {
 		$min_results = str_shuffle( $lower_list_min . $upper_list_min . $number_list_min . $symbol_list_min );
 
 		$needed = $count - strlen($min_results);
-
 
 		$result = str_shuffle( $lower_list_max . $upper_list_max . $number_list_max . $symbol_list_max);
 
