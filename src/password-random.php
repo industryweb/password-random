@@ -1,11 +1,11 @@
 <?php
 /**
- * Class PasswordRandom
+ * Password random generator.
  *
  * @author Industry Web <info@industryweb.com>
  * @link    https://industryweb.com
  *
- * @version 0.1.1
+ * @version 0.2.0
  */
 
 namespace IndustryWeb;
@@ -13,62 +13,145 @@ namespace IndustryWeb;
 
 class PasswordRandom {
 
-	protected $min;
-	protected $max;
-	protected $lower;
-	protected $upper;
-	protected $number;
-	protected $symbol;
+	protected $length_min;
+	protected $length_max;
+	protected $lower_min;
+	protected $lower_max;
+	protected $lower_list;
+	protected $upper_min;
+	protected $upper_max;
+	protected $upper_list;
+	protected $number_min;
+	protected $number_max;
+	protected $number_list;
+	protected $symbol_min;
+	protected $symbol_max;
+	protected $symbol_list;
+
+
+	public function __construct() {
+		$this->config();
+	}
 
 	/**
-	 * Constructor
+	 * Default configuration.
+	 */
+	public function config() {
+
+		$this->length_min  = 9;
+		$this->length_max  = 12;
+		$this->lower_list  = 'abcdefghijklmnopqrstuvwxyz';
+		$this->lower_min   = 2;
+		$this->lower_max   = strlen( $this->lower_list );
+		$this->upper_list  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$this->upper_min   = 2;
+		$this->upper_max   = strlen( $this->upper_list );
+		$this->number_list = '0123456789';
+		$this->number_min  = 1;
+		$this->number_max  = strlen( $this->number_list );
+		$this->symbol_list = '~*!@$#%_+.?:,{}';
+		$this->symbol_min  = 1;
+		$this->symbol_max  = strlen( $this->symbol_list );
+
+	}
+
+	/**
+	 * Password min/max length setter.
 	 *
 	 * @param $min
-	 * @param $max
-	 * @param $lower
-	 * @param $upper
-	 * @param $number
-	 * @param $symbol
+	 * @param string $max
 	 *
-	 * @since 0.1.0
+	 * @return $this
 	 */
-	public function __construct( $min = 15, $max = 25, $lower = 3, $upper = 3, $number = 3, $symbol = 3 ) {
+	public function length( $min, $max = '' ) {
+		$this->length_min = $min;
+		$max ? $this->length_max = $max : $this->length_max;
 
-		$this->min     = $min;
-		$this->max     = $max;
-		$this->lower   = $lower;
-		$this->upper   = $upper;
-		$this->number  = $number;
-		$this->symbol  = $symbol;
-
-	}
-	public function min( $min ) {
-		$this->min = $min;
-		return $this;
-	}
-	public function max( $max ) {
-		$this->max = $max;
-		return $this;
-	}
-	public function lower( $lower ) {
-		$this->lower = $lower;
-		return $this;
-	}
-	public function upper( $upper ) {
-		$this->upper = $upper;
-		return $this;
-	}
-	public function number( $number ) {
-		$this->number = $number;
-		return $this;
-	}
-	public function symbol( $symbol ) {
-		$this->symbol = $symbol;
 		return $this;
 	}
 
 	/**
-	 * Generate
+	 * Lowercase min/max length and character list setter.
+	 *
+	 * @param $min
+	 * @param string $max
+	 * @param string $list
+	 *
+	 * @return $this
+	 */
+	public function lower( $min, $max = '', $list = '' ) {
+		$this->lower_min = $min;
+		if ( $list ) {
+			$this->lower_list = $list;
+			$this->lower_max  = strlen( $this->lower_list );
+		}
+		$max ? $this->lower_max = $max : $this->lower_max;
+
+		return $this;
+	}
+
+	/**
+	 * Uppercase min/max length and character list setter.
+	 *
+	 * @param $min
+	 * @param string $max
+	 * @param string $list
+	 *
+	 * @return $this
+	 */
+	public function upper( $min, $max = '', $list = '' ) {
+		$this->upper_min = $min;
+		if ( $list ) {
+			$this->upper_list = $list;
+			$this->upper_max  = strlen( $this->upper_list );
+		}
+		$max ? $this->upper_max = $max : $this->upper_max;
+
+		return $this;
+	}
+
+	/**
+	 * Number min/max length and character list setter.
+	 *
+	 * @param $min
+	 * @param string $max
+	 * @param string $list
+	 *
+	 * @return $this
+	 */
+	public function number( $min, $max = '', $list = '' ) {
+		$this->number_min = $min;
+		if ( $list ) {
+			$this->number_list = $list;
+			$this->number_max  = strlen( $this->number_list );
+		}
+		$max ? $this->number_max = $max : $this->number_max;
+
+		return $this;
+	}
+
+	/**
+	 * Symbol min/max length and character list setter.
+	 *
+	 * @param $min
+	 * @param string $max
+	 * @param string $list
+	 *
+	 * @return $this
+	 */
+	public function symbol( $min, $max = '', $list = '' ) {
+		$this->symbol_min = $min;
+		if ( $list ) {
+			$this->symbol_list = $list;
+			$this->symbol_max  = strlen( $this->symbol_list );
+		}
+		$max ? $this->symbol_max = $max : $this->symbol_max;
+
+		return $this;
+	}
+
+	/**
+	 * Generate password.
 	 *
 	 * @return string
 	 *
@@ -76,85 +159,115 @@ class PasswordRandom {
 	 */
 	public function generate() {
 
-		$min = $this->min;
-		$max = $this->max;
-		$lower = $this->lower;
-		$upper = $this->upper;
-		$number = $this->number;
-		$symbol = $this->symbol;
-
-		// Character maps
-		$lower_list   = 'abcdefghijklmnopqrstuvwxyz';
-		$upper_list   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$number_list  = '0123456789';
-		$symbol_list = '~*!@$#%_+.?:,{}';
-
-		// Base values
-		$count         = mt_rand( $min, $max );
-		$total         = $lower + $upper + $number + $symbol;
-		$counter       = 0;
-		$password      = '';
-		$second        = '';
-		$lower_count   = 0;
-		$upper_count   = 0;
-		$number_count  = 0;
+		$length_min  = $this->length_min;
+		$length_max  = $this->length_max;
+		$lower_min   = $this->lower_min;
+		$lower_max   = min( $this->lower_max, $length_max );
+		$lower_list  = $this->lower_list;
+		$upper_min   = $this->upper_min;
+		$upper_max   = min($this->upper_max, $length_max );
+		$upper_list  = $this->upper_list;
+		$number_min  = $this->number_min;
+		$number_max  = min($this->number_max, $length_max );
+		$number_list = $this->number_list;
+		$symbol_min  = $this->symbol_min;
+		$symbol_max  = min($this->symbol_max, $length_max );
+		$symbol_list = $this->symbol_list;
+		$count        = mt_rand( $length_min, $length_max );
+		$lower_count  = 0;
+		$upper_count  = 0;
+		$number_count = 0;
 		$symbol_count = 0;
-		$all           = '';
+		$lower_list_min = '';
+		$lower_list_max = '';
+		$upper_list_min = '';
+		$upper_list_max = '';
+		$number_list_min = '';
+		$number_list_max = '';
+		$symbol_list_min = '';
+		$symbol_list_max = '';
 
-		// Build required character map
-		if ( $lower ) {
-			$all .= $lower_list;
-		}
-		if ( $upper ) {
-			$all .= $upper_list;
-		}
-		if ( $number ) {
-			$all .= $number_list;
-		}
-		if ( $symbol ) {
-			$all .= $symbol_list;
-		}
 
 		// Build the first password with required characters amounts
 		for ( $i = 0; $i < $count; $i ++ ) {
 
-			if ( $lower_count < $lower ) {
-				$lower_count ++;
-				$password .= substr( str_shuffle( $lower_list ), 0, 1 );
+			if ( $lower_count < $lower_max ) {
+
+				if ( $lower_count <= $lower_min ) {
+					$lower_list_min .= substr( str_shuffle( $lower_list ), 0, 1 );
+					$lower_count ++; // = strlen($lower_list_min);
+				}
+				if ( $lower_count < $lower_max ) {
+					$lower_list_max .= substr( str_shuffle( $this->make_list( $count, $lower_list ) ), 0, 1 );
+					$lower_count ++;
+				}
 			}
 
-			if ( $upper_count < $upper ) {
-				$upper_count ++;
-				$password .= substr( str_shuffle( $upper_list ), 0, 1 );
+
+			if ( $upper_count < $upper_max ) {
+
+				if ( $upper_count <= $upper_min ) {
+					$upper_list_min .= substr( str_shuffle( $upper_list ), 0, 1 );
+					$upper_count ++; // = strlen($upper_list_min);
+				}
+				if ( $upper_count < $upper_max ) {
+					$upper_list_max .= substr( str_shuffle( $this->make_list( $count, $upper_list ) ), 0, 1 );
+					$upper_count ++;
+				}
 			}
 
-			if ( $number_count < $number ) {
-				$number_count ++;
-				$password .= substr( str_shuffle( $number_list ), 0, 1 );
+			if ( $number_count < $number_max ) {
+
+				if ( $number_count <= $number_min ) {
+					$number_list_min .= substr( str_shuffle( $number_list ), 0, 1 );
+					$number_count ++; // = strlen($number_list_min);
+				}
+				if ( $number_count < $number_max ) {
+					$number_list_max .= substr( str_shuffle( $this->make_list( $count, $number_list ) ), 0, 1 );
+					$number_count ++;
+				}
 			}
 
-			if ( $symbol_count < $symbol ) {
-				$symbol_count ++;
-				$password .= substr( str_shuffle( $symbol_list ), 0, 1 );
+			if ( $symbol_count < $symbol_max ) {
+
+				if ( $symbol_count <= $symbol_min ) {
+					$symbol_list_min .= substr( str_shuffle( $symbol_list ), 0, 1 );
+					$symbol_count ++; // = strlen($symbol_list_min);
+				}
+				if ( $symbol_count < $symbol_max ) {
+					$symbol_list_max .= substr( str_shuffle( $this->make_list( $count, $symbol_list ) ), 0, 1 );
+					$symbol_count ++;
+				}
 			}
-			$counter ++;
+
+
 		}
-
-		// Build a second password with all the required characters
-		for ( $i = 0; $i < $count; $i ++ ) {
-			$second .= substr( str_shuffle( $all ), 0, 1 );
-		}
-
-		// Remove the subtracted amount of required characters on the second password
-		$remove = ( $count - $total );
-		$pass2  = substr( $second, 0, $remove );
 
 		// Concatenate the two then shuffle
-		$result = str_shuffle( $password . $pass2 );
+		$min_results = str_shuffle( $lower_list_min . $upper_list_min . $number_list_min . $symbol_list_min );
+
+		$needed = $count - strlen($min_results);
+
+
+		$result = str_shuffle( $lower_list_max . $upper_list_max . $number_list_max . $symbol_list_max);
+
+		$max_results = substr( $result, $needed, $needed );
 
 		// Return random generated password.
-		return $result;
+		return str_shuffle($min_results . $max_results );
 
 	}
+
+	public function make_list( $max, $list ){
+		$new_list = '';
+		$i = 0;
+		while ( $max > $i ){
+			$i++;
+			$new_list .= substr( str_shuffle( $list ), 0, 1 );
+		}
+
+		return $new_list;
+	}
+
 
 }

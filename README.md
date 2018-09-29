@@ -25,25 +25,17 @@ use IndustryWeb\PasswordRandom;
 
 $password = new PasswordRandom();
 
-echo $password
-	->min( 10 )
-	->max( 12 )
-	->lower( 3 )
-	->upper( 3 )
-	->number( 3 )
-	->symbol( 3 )
-	->generate();
-
-```
-Or use the constructor.
-```php
-use IndustryWeb\PasswordRandom;
-
 $password = new PasswordRandom();
 
-$password = new PasswordRandom( 10, 12, 3, 3, 3, 3 );
+$password
+	->length( 30, 40 )
+	->lower( 2, 40 )
+	->upper( 2, 40 )
+	->number( 2, 3 )
+	->symbol( 2, 3 );
+	
+echo $password;
 
-echo $password->generate();
 ```
 
 ## License: 
