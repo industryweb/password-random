@@ -1,7 +1,6 @@
 <?php
 
-require_once('../src/password-random.php');
-
+require_once('../password-random.php');
 
 use IndustryWeb\PasswordRandom;
 
@@ -16,6 +15,4 @@ $password
 
 echo $password->generate();
 
-echo '<br><br>';
-
-echo strlen( $password->generate() );
+echo '<br><br> Total Characters: ' . strlen( $password->generate() );
