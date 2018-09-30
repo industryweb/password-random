@@ -5,7 +5,7 @@
  * @author Industry Web <info@industryweb.com>
  * @link    https://industryweb.com
  *
- * @version 0.2.1
+ * @version 0.2.2
  */
 
 namespace IndustryWeb;

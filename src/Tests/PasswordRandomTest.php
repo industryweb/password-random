@@ -1,7 +1,5 @@
 <?php
 
-require_once('../password-random.php');
-
 use IndustryWeb\PasswordRandom;
 
 $password = new PasswordRandom();

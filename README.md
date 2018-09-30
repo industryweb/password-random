@@ -32,7 +32,7 @@ $password
 	->number( 2, 3 )
 	->symbol( 2, 3 );
 	
-echo $password;
+echo $password->generate();
 
 ```
 
