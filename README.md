@@ -23,18 +23,26 @@ Use the setters.
 ```php
 use IndustryWeb\PasswordRandom;
 
-$password = new PasswordRandom();
 
-$password
-	->length( 30, 40 )
-	->lower( 2, 40 )
-	->upper( 2, 40 )
-	->number( 2, 3 )
-	->symbol( 2, 3 );
-	
-echo $password->generate();
+$random = new PasswordRandom();
+
+// Set our min and max then generate.
+$password = $random->length(16, 18)
+    ->lower(2)
+    ->upper(2)
+    ->number(2)
+    ->symbol(2)
+    ->generate();
+
+//  Display password.
+echo $password . '<br><br>';
+
+// Display character count.
+echo 'Total Characters: '.strlen($password);
 
 ```
 
 ## License: 
-Please see The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+(MIT) License. 
+
+Please see [License File](LICENSE.md) for more information.

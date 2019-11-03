@@ -2,10 +2,9 @@
 /**
  * Password random generator.
  *
- * @author Industry Web <info@industryweb.com>
+ * @author IndustryWeb <info@industryweb.com>
  * @link    https://industryweb.com
  *
- * @version 0.2.2
  */
 
 namespace IndustryWeb;
